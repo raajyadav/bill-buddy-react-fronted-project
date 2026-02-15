@@ -49,7 +49,7 @@ const Login = () => {
   >
     <div className="bg-white p-5 sm:p-8 rounded-xl shadow-lg w-full max-w-md transition-all duration-300 sm:hover:scale-105">
       <h2 className="text-xl sm:text-3xl font-bold text-center text-gray-800 mb-4 sm:mb-8">
-        Welcome Back
+        Welcome Back 
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
