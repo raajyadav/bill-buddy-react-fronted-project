@@ -30,7 +30,7 @@ const UserDashboard = () => {
 
   async function getAllGroups() {
     let { data } = await axios.get(
-      "http://localhost:8182/roomMates/getAllRoomDetails",
+      `${import.meta.env.VITE_PUBLIC_API_URL}/roomMates/getAllRoomDetails`,
       { withCredentials: true },
     );
     console.log(data);
@@ -39,7 +39,7 @@ const UserDashboard = () => {
 
   // PUT API TO GET LOGIN USER DATA
   async function getloginuserData() {
-    let { data } = await axios.get("http://localhost:8182/user/getUserName", {
+    let { data } = await axios.get(`${import.meta.env.VITE_PUBLIC_API_URL}/user/getUserName`, {
       withCredentials: true,
     });
     setLoginuser(data);
@@ -47,7 +47,7 @@ const UserDashboard = () => {
 
   async function getTotalPrice() {
     let { data } = await axios.get(
-      "http://localhost:8182/user/getUserLoggedInAddedItemsSummation",
+      `${import.meta.env.VITE_PUBLIC_API_URL}/user/getUserLoggedInAddedItemsSummation`,
       { withCredentials: true },
     );
     console.log(data);
@@ -63,7 +63,7 @@ const UserDashboard = () => {
     if (newGroup.roomName.trim()) {
       try {
         let resp = await axios.post(
-          "http://localhost:8182/roomMates/createRoom",
+          `${import.meta.env.VITE_PUBLIC_API_URL}/roomMates/createRoom`,
           newGroup,
           { withCredentials: true },
         );
@@ -91,7 +91,7 @@ const UserDashboard = () => {
     if (newFriend.userEmail.trim() && newFriend.roomName.trim()) {
       try {
         let resp = await axios.get(
-          `http://localhost:8182/roomMates/addRoomMates/${newFriend.userEmail}/${newFriend.roomName}`,
+          `${import.meta.env.VITE_PUBLIC_API_URL}/roomMates/addRoomMates/${newFriend.userEmail}/${newFriend.roomName}`,
           { withCredentials: true },
         );
         console.log(resp);
@@ -111,7 +111,7 @@ const UserDashboard = () => {
       console.log("Adding item:", itemData);
       let userName = sessionStorage.getItem("useremail");
       let resp = await axios.post(
-        `http://localhost:8182/items/addItems/${roomName}`,
+        `${import.meta.env.VITE_PUBLIC_API_URL}/items/addItems/${roomName}`,
         itemData,
         { withCredentials: true },
       );
@@ -129,7 +129,7 @@ const UserDashboard = () => {
 
   const logoutuser = async () => {
     try {
-      let resp = await axios.get("http://localhost:8182/user/userLogout", {
+      let resp = await axios.get(`${import.meta.env.VITE_PUBLIC_API_URL}/user/userLogout`, {
         withCredentials: true,
       });
       console.log(resp);
@@ -169,7 +169,7 @@ const UserDashboard = () => {
   const fetchGroupItems = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8182/items/groupItems",
+        `${import.meta.env.VITE_PUBLIC_API_URL}/items/groupItems`,
         {
           withCredentials: true,
         },
@@ -183,7 +183,7 @@ const UserDashboard = () => {
   const fetchOweInfo = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8182/owe/getOweUserByLoggedUserId",
+        `${import.meta.env.VITE_PUBLIC_API_URL}/owe/getOweUserByLoggedUserId`,
         { withCredentials: true },
       );
       const data = response.data;
