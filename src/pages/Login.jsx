@@ -20,27 +20,34 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
-    try {
-      let { data } = await axios.get(
-        `${import.meta.env.VITE_PUBLIC_API_URL}/user/loginUser/${formData.email}/${formData.password}`,
-        { withCredentials: true },
-      );
-      console.log(data);
-      if (data.message === "Login Success") {
-        toast.success("Welcome");
-        sessionStorage.setItem("accesstoken", Date.now());
-        navigate("/userdashboard");
-      }
-    } catch (error) {
-      console.log(error.response.data);
-      if (error.response.data === "Invalid Credentials") {
-        toast.error("Invalid Credentials");
-      }
+  e.preventDefault();
+
+  try {
+    let { data } = await axios.post(
+      `${import.meta.env.VITE_PUBLIC_API_URL}/user/login`,
+      {
+        email: formData.email,
+        password: formData.password,
+      },
+      { withCredentials: true }
+    );
+
+    console.log(data);
+
+    if (data.message === "Login Success") {
+      toast.success("Welcome");
+      sessionStorage.setItem("accesstoken", Date.now());
+      navigate("/userdashboard");
     }
-  };
+  } catch (error) {
+    console.log(error.response?.data);
+    if (error.response?.data === "Invalid Credentials") {
+      toast.error("Invalid Credentials");
+    } else {
+      toast.error("Login failed");
+    }
+  }
+};
 
   return (
     <div
